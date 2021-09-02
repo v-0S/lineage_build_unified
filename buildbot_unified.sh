@@ -1,6 +1,6 @@
 #!/bin/bash
 echo ""
-echo "LineageOS 18.x Unified Buildbot"
+echo "v1_OS 18.x Buildbot"
 echo "ATTENTION: this script syncs repo on each run"
 echo "Executing in 5 seconds - CTRL-C to exit"
 echo ""
@@ -86,7 +86,7 @@ finalize_treble() {
 
 build_device() {
     brunch ${1}
-    mv $OUT/lineage-*.zip ~/build-output/lineage-18.1-$BUILD_DATE-UNOFFICIAL-${1}$($PERSONAL && echo "-personal" || echo "").zip
+    mv $OUT/lineage-*.zip ~/build-output/v1_OS-$BUILD_DATE-${1}$($PERSONAL && echo "-personal" || echo "").zip
 }
 
 build_treble() {
@@ -100,7 +100,7 @@ build_treble() {
     make installclean
     make -j$(nproc --all) systemimage
     make vndk-test-sepolicy
-    mv $OUT/system.img ~/build-output/lineage-18.1-$BUILD_DATE-UNOFFICIAL-${TARGET}$(${PERSONAL} && echo "-personal" || echo "").img
+    mv $OUT/system.img ~/build-output/v1_OS-$BUILD_DATE-${TARGET}$(${PERSONAL} && echo "-personal" || echo "").img
 }
 
 echo "Applying patches"
@@ -124,7 +124,7 @@ do
     echo "Starting $(${PERSONAL} && echo "personal " || echo "")build for ${MODE} ${var}"
     build_${MODE} ${var}
 done
-ls ~/build-output | grep 'lineage' || true
+ls ~/build-output | grep 'v1_OS' || true
 
 END=`date +%s`
 ELAPSEDM=$(($(($END-$START))/60))
